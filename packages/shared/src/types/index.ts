@@ -9,6 +9,22 @@ export interface LoginDto {
   password: string;
 }
 
+export interface RegisterDto {
+  email: string;
+  password: string;
+  nombre: string;
+  apellido?: string;
+  rol?: string;
+}
+
+export interface RefreshTokenDto {
+  refreshToken: string;
+}
+
+export interface LogoutDto {
+  accessToken?: string;
+}
+
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
