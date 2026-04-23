@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/store/auth.store';
 import { Button } from '@/components/ui/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function DashboardPage() {
   const logout = useAuthStore((s) => s.logout);
@@ -10,6 +10,18 @@ export function DashboardPage() {
     logout();
     navigate('/login');
   };
+
+  const modules = [
+    { name: 'Pacientes', link: '/pacientes', available: true },
+    { name: 'Citas', link: '#', available: false },
+    { name: 'Historias Clínicas', link: '#', available: false },
+    { name: 'Empleados', link: '#', available: false },
+    { name: 'Contabilidad', link: '#', available: false },
+    { name: 'Inventarios', link: '#', available: false },
+    { name: 'Marketing', link: '#', available: false },
+    { name: 'Reportes', link: '#', available: false },
+    { name: 'Configuración', link: '#', available: false },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -21,23 +33,24 @@ export function DashboardPage() {
           </Button>
         </div>
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            'Pacientes',
-            'Citas',
-            'Historias Clínicas',
-            'Empleados',
-            'Contabilidad',
-            'Inventarios',
-            'Marketing',
-            'Reportes',
-            'Configuración',
-          ].map((mod) => (
+          {modules.map((mod) => (
             <div
-              key={mod}
+              key={mod.name}
               className="rounded-lg border bg-white p-6 shadow-sm transition hover:shadow-md"
             >
-              <h3 className="text-lg font-semibold text-gray-900">{mod}</h3>
-              <p className="mt-1 text-sm text-gray-500">Módulo en desarrollo</p>
+              {mod.available ? (
+                <Link to={mod.link} className="block">
+                  <h3 className="text-lg font-semibold text-gray-900 hover:text-indigo-600">
+                    {mod.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Gestionar pacientes</p>
+                </Link>
+              ) : (
+                <>
+                  <h3 className="text-lg font-semibold text-gray-900">{mod.name}</h3>
+                  <p className="mt-1 text-sm text-gray-500">Módulo en desarrollo</p>
+                </>
+              )}
             </div>
           ))}
         </div>

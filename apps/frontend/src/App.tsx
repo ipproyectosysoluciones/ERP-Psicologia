@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { PacientesPage } from './pages/pacientes/PacientesPage';
+import { PacienteFormPage } from './pages/pacientes/PacienteFormPage';
 import { useAuthStore } from './store/auth.store';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -18,6 +20,22 @@ export function App() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pacientes"
+        element={
+          <ProtectedRoute>
+            <PacientesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pacientes/:id"
+        element={
+          <ProtectedRoute>
+            <PacienteFormPage />
           </ProtectedRoute>
         }
       />
