@@ -1,0 +1,19 @@
+{
+  "name": "erp-psicologia",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ERP para clínicas de psicología/psiquiatría",
+  "scripts": {
+    "dev:frontend": "pnpm --filter @erp/frontend dev",
+    "dev:backend": "pnpm --filter @erp/backend start:dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:coverage": "pnpm -r test:coverage",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

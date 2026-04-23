@@ -1,0 +1,48 @@
+{
+  "name": "@erp/backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"{src,test}/**/*.ts\""
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/passport": "^11.0.0",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/sequelize": "^11.0.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "bcrypt": "^5.1.1",
+    "sequelize": "^6.37.0",
+    "sequelize-typescript": "^2.1.6",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.0",
+    "class-validator": "^0.14.0",
+    "class-transformer": "^0.5.1",
+    "@erp/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.0",
+    "@types/passport-jwt": "^4.0.1",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "supertest": "^7.0.0",
+    "@types/supertest": "^6.0.0",
+    "unplugin-swc": "^1.5.0"
+  }
+}

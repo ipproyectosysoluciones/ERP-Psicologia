@@ -1,0 +1,3 @@
+# Migrations
+
+Database migration files go here. Use `npx sequelize-cli migration:generate --name <name>`.

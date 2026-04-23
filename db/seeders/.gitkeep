@@ -1,0 +1,3 @@
+# Seeders
+
+Database seed files go here. Use `npx sequelize-cli seed:generate --name <name>`.
