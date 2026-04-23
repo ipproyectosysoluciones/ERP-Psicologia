@@ -69,6 +69,35 @@ pnpm build
 pnpm test
 ```
 
+### Swagger API Documentation / Documentación API
+
+**English**
+The interactive API documentation is available at:
+
+```
+http://localhost:3000/api/docs
+```
+
+**Features:**
+- Interactive documentation (Swagger UI)
+- Test endpoints directly from browser
+- Auto-generated from JSDoc annotations
+- Bilingual documentation (Spanish/English)
+
+---
+**Español**
+La documentación interactiva de la API está disponible en:
+
+```
+http://localhost:3000/api/docs
+```
+
+**Características:**
+- Documentación interactiva (Swagger UI)
+- Pruebas de endpoints directamente desde el navegador
+- Generación automática desde anotaciones JSDoc
+- Documentación bilingüe (español/inglés)
+
 ### API Endpoints
 
 | Método | Endpoint | Descripción |
