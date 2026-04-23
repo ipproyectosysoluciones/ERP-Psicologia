@@ -19,7 +19,7 @@ export function LoginPage() {
     setLoading(true);
     try {
       const tokens = await authService.login({ email, password });
-      setAuth(tokens.accessToken, { id: '', email, nombre: '', apellido: '', role: '' });
+      setAuth(tokens.accessToken, tokens.refreshToken, { id: '', email, nombre: '', apellido: '', role: '' });
       navigate('/dashboard');
     } catch {
       setError('Credenciales inválidas');

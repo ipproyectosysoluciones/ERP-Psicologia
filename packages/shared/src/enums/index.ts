@@ -2,8 +2,8 @@ export enum Roles {
   ADMIN = 'ADMIN',
   PSICOLOGO = 'PSICOLOGO',
   PSIQUIATRA = 'PSIQUIATRA',
-  RECEPCIONISTA = 'RECEPCIONISTA',
-  CONTADOR = 'CONTADOR',
+  SECRETARIO = 'SECRETARIO',
+  USER = 'USER',
 }
 
 export enum EstadoCita {
