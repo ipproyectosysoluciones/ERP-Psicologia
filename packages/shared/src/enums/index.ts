@@ -20,3 +20,10 @@ export enum EstadoFactura {
   PAGADA = 'PAGADA',
   ANULADA = 'ANULADA',
 }
+
+export enum TipoPlantilla {
+  ANAMNESIS = 'ANAMNESIS',
+  EVOLUCION = 'EVOLUCION',
+  CIERRE = 'CIERRE',
+  LIBRE = 'LIBRE',
+}
