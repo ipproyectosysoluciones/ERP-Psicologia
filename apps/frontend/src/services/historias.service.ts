@@ -1,47 +1,44 @@
 import { api } from './api';
-import type { HistoriaClinicaDto } from '@erp/shared';
+import type { HistoriaClinica, CreateHistoriaDto, UpdateHistoriaDto, HistoriaFilters, PlantillaHistoria } from '../types/historias.types';
 
 export const historiasService = {
-  async getAll(params?: {
-    page?: number;
-    limit?: number;
-    pacienteId?: string;
-    profesionalId?: string;
-    tipoPlantilla?: string;
-    fechaDesde?: string;
-    fechaHasta?: string;
-  }): Promise<{ data: HistoriaClinicaDto[]; total: number; page: number; limit: number }> {
-    const searchParams = new URLSearchParams();
-    if (params) {
-      Object.entries(params).forEach(([k, v]) => {
-        if (v !== undefined && v !== null) searchParams.set(k, String(v));
-      });
-    }
-    const res = await api.get(`/historias?${searchParams}`);
-    return res.data;
+  async listar(filtros?: HistoriaFilters): Promise<HistoriaClinica[]> {
+    const params = new URLSearchParams();
+    if (filtros?.pacienteId) params.append('pacienteId', filtros.pacienteId);
+    if (filtros?.profesionalId) params.append('profesionalId', filtros.profesionalId);
+    if (filtros?.fecha) params.append('fecha', filtros.fecha);
+    if (filtros?.tipoPlantilla) params.append('tipoPlantilla', filtros.tipoPlantilla);
+    const query = params.toString() ? `?${params.toString()}` : '';
+    const { data } = await api.get<HistoriaClinica[]>(`/historias${query}`);
+    return data;
   },
 
-  async get(id: string): Promise<HistoriaClinicaDto> {
-    const res = await api.get(`/historias/${id}`);
-    return res.data;
+  async obtener(id: string): Promise<HistoriaClinica> {
+    const { data } = await api.get<HistoriaClinica>(`/historias/${id}`);
+    return data;
   },
 
-  async create(data: Partial<HistoriaClinicaDto>): Promise<HistoriaClinicaDto> {
-    const res = await api.post('/historias', data);
-    return res.data;
+  async crear(dto: CreateHistoriaDto): Promise<HistoriaClinica> {
+    const { data } = await api.post<HistoriaClinica>('/historias', dto);
+    return data;
   },
 
-  async update(id: string, data: Partial<HistoriaClinicaDto>): Promise<HistoriaClinicaDto> {
-    const res = await api.put(`/historias/${id}`, data);
-    return res.data;
+  async actualizar(id: string, dto: UpdateHistoriaDto): Promise<HistoriaClinica> {
+    const { data } = await api.patch<HistoriaClinica>(`/historias/${id}`, dto);
+    return data;
   },
 
-  async delete(id: string): Promise<void> {
+  async eliminar(id: string): Promise<void> {
     await api.delete(`/historias/${id}`);
   },
 
-  async getByPaciente(pacienteId: string): Promise<HistoriaClinicaDto[]> {
-    const res = await api.get(`/historias/paciente/${pacienteId}`);
-    return res.data;
+  async listarPlantillas(): Promise<PlantillaHistoria[]> {
+    const { data } = await api.get<PlantillaHistoria[]>('/plantillas');
+    return data;
+  },
+
+  async obtenerPlantilla(id: string): Promise<PlantillaHistoria> {
+    const { data } = await api.get<PlantillaHistoria>(`/plantillas/${id}`);
+    return data;
   },
 };
