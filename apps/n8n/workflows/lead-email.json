@@ -1,0 +1,79 @@
+{
+  "name": "ERP-Leads-Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-email",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Leads Email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "erp-lead-email",
+      "webhookPath": "webhook/lead-email",
+      "webhookMethod": "POST"
+    },
+    {
+      "parameters": {
+        "to": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "email-send",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "respondWith",
+        "responseBodyType": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Email enviado\"\n}",
+        "options": {}
+      },
+      "id": "respond-to",
+      "name": "Respond to ERP",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Leads Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Respond to ERP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["erp", "leads", "email"],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-24T00:00:00.000Z",
+  "versionId": "1"
+}
