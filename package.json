@@ -15,5 +15,13 @@
   "engines": {
     "node": ">=20",
     "pnpm": ">=9"
+  },
+  "pnpm": {
+    "overrides": {
+      "tar": ">=7.5.11",
+      "serialize-javascript": ">=7.0.5",
+      "uuid": ">=14.0.0",
+      "protobufjs": ">=7.5.5"
+    }
   }
 }
