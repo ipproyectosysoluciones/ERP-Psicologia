@@ -12,25 +12,30 @@
     "lint": "eslint \"{src,test}/**/*.ts\""
   },
   "dependencies": {
+    "@erp/shared": "workspace:*",
+    "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.0",
+    "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.0",
-    "@nestjs/platform-express": "^11.0.0",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/passport": "^11.0.0",
-    "@nestjs/config": "^4.0.0",
+    "@nestjs/platform-express": "^11.0.0",
     "@nestjs/sequelize": "^11.0.0",
+    "@nestjs/swagger": "^11.4.1",
+    "axios": "^1.15.0",
+    "bcrypt": "^5.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "bcrypt": "^5.1.1",
-    "sequelize": "^6.37.0",
-    "sequelize-typescript": "^2.1.6",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.0",
-    "class-validator": "^0.14.0",
-    "class-transformer": "^0.5.1",
-    "@erp/shared": "workspace:*"
+    "sequelize": "^6.37.0",
+    "sequelize-typescript": "^2.1.6",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
@@ -39,10 +44,10 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/passport-jwt": "^4.0.1",
-    "typescript": "^5.7.0",
-    "vitest": "^3.0.0",
-    "supertest": "^7.0.0",
     "@types/supertest": "^6.0.0",
-    "unplugin-swc": "^1.5.0"
+    "supertest": "^7.0.0",
+    "typescript": "^5.7.0",
+    "unplugin-swc": "^1.5.0",
+    "vitest": "^3.0.0"
   }
 }

@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
+import { TokenBlacklistService } from './token-blacklist.service';
 import { UsersModule } from '../users/users.module';
 
 @Module({
@@ -16,12 +17,12 @@ import { UsersModule } from '../users/users.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         secret: config.get('JWT_SECRET', 'dev-secret'),
-        signOptions: { expiresIn: config.get('JWT_EXPIRES_IN', '1h') },
+        signOptions: { expiresIn: config.get('JWT_EXPIRES_IN', '15m') },
       }),
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, TokenBlacklistService],
+  exports: [AuthService, TokenBlacklistService],
 })
 export class AuthModule {}

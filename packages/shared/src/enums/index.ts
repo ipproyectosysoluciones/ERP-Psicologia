@@ -2,8 +2,8 @@ export enum Roles {
   ADMIN = 'ADMIN',
   PSICOLOGO = 'PSICOLOGO',
   PSIQUIATRA = 'PSIQUIATRA',
-  RECEPCIONISTA = 'RECEPCIONISTA',
-  CONTADOR = 'CONTADOR',
+  SECRETARIO = 'SECRETARIO',
+  USER = 'USER',
 }
 
 export enum EstadoCita {
@@ -19,4 +19,11 @@ export enum EstadoFactura {
   EMITIDA = 'EMITIDA',
   PAGADA = 'PAGADA',
   ANULADA = 'ANULADA',
+}
+
+export enum TipoPlantilla {
+  ANAMNESIS = 'ANAMNESIS',
+  EVOLUCION = 'EVOLUCION',
+  CIERRE = 'CIERRE',
+  LIBRE = 'LIBRE',
 }
