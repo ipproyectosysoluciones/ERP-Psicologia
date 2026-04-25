@@ -1,0 +1,148 @@
+{
+  "name": "ERP-Citas-Create",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "citas-create",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Citas",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "erp-citas-create",
+      "webhookPath": "webhook/citas-create",
+      "webhookMethod": "POST"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "calendarId": {
+          "crm": false,
+          "value": "primary"
+        },
+        "start": "={{ $json.fecha }}T{{ $json.horaInicio }}:00.000",
+        "end": "={{ $json.fecha }}T{{ $json.horaFin }}:00.000",
+        "summary": "Cita con {{ $json.pacienteNombre }}",
+        "description": "Tipo: {{ $json.tipo }}\nMotivo: {{ $json.motivo }}",
+        "attendees": [
+          {
+            "email": "{{ $json.pacienteEmail }}"
+          }
+        ],
+        "options": {
+          "sendInvites": true
+        }
+      },
+      "id": "google-calendar",
+      "name": "Google Calendar",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [450, 300],
+      "credentials": {
+        "googleCalendarOAuth2Api": "Google Calendar"
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": {
+          "crm": false,
+          "value": "citas-sheet-id"
+        },
+        "range": "A:H",
+        "options": {}
+      },
+      "id": "google-sheets",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [650, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": "Google Sheets"
+      }
+    },
+    {
+      "parameters": {
+        "to": "{{ $json.pacienteEmail }}",
+        "subject": "Confirmación de tu cita - Clínica de Psicología",
+        "options": {}
+      },
+      "id": "email-send",
+      "name": "Email Confirmación",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "respondWith",
+        "responseBodyType": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"id\": \"{{ $json.id }}\",\n  \"message\": \"Cita creada\"\n}",
+        "options": {}
+      },
+      "id": "respond-to",
+      "name": "Respond to ERP",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Citas": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Email Confirmación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Confirmación": {
+      "main": [
+        [
+          {
+            "node": "Respond to ERP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["erp", "citas"],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-24T00:00:00.000Z",
+  "versionId": "1"
+}

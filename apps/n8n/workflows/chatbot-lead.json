@@ -1,0 +1,108 @@
+{
+  "name": "ERP-ChatBot-Lead",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatbot-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook ChatBot Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "erp-chatbot-lead",
+      "webhookPath": "webhook/chatbot-lead",
+      "webhookMethod": "POST"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "resource": "contact",
+        "contactFields": {
+          "firstName": "={{ $json.nombre }}",
+          "email": "={{ $json.email }}",
+          "phone": "={{ $json.telefono }}"
+        }
+      },
+      "id": "hubspot",
+      "name": "HubSpot (optional)",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 1.3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "request": {
+          "body": {
+            "nombre": "={{ $json.nombre }}",
+            "email": "={{ $json.email }}",
+            "telefono": "={{ $json.telefono }}",
+            "origen": "whatsapp",
+            "campaign": "={{ $json.campaign }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "erp-api",
+      "name": "Create Lead in ERP",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 450],
+      "notes": "POST to backend /api/leads"
+    },
+    {
+      "parameters": {
+        "operation": "respondWith",
+        "responseBodyType": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"leadId\": \"{{ $json.id }}\"\n}",
+        "options": {}
+      },
+      "id": "respond-to",
+      "name": "Respond to ChatBot",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [650, 375]
+    }
+  ],
+  "connections": {
+    "Webhook ChatBot Lead": {
+      "main": [
+        [
+          {
+            "node": "HubSpot (optional)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Lead in ERP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Lead in ERP": {
+      "main": [
+        [
+          {
+            "node": "Respond to ChatBot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["erp", "chatbot", "lead"],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-24T00:00:00.000Z",
+  "versionId": "1"
+}
