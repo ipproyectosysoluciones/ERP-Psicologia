@@ -4,7 +4,33 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ---
 
-## Español
+## [1.1.0] - 2025-04-25
+
+### Cambios / Changes
+- Security: Resueltas 9 vulnerabilidades npm con pnpm overrides
+- Tests: Agregados unit tests para Leads y Citas módulos
+- Documentation: Swagger/JSDoc bilingüe completado
+
+### Issues
+- Closes #4: Vulnerabilidades de seguridad
+- Closes #5, #6: Documentación Swagger
+- Closes #7: Tests unitarios
+
+---
+
+## [1.0.0] - 2025-04-24
+
+### Cambios / Changes
+- Historias Clínicas frontend completo
+- Leads módulo full stack
+- Landing page con LeadForm widget
+- ChatBot fixes + ERP integración
+- n8n workflows para automatización
+
+### Módulos completos
+- Backend: Auth, Pacientes, Citas, Leads, Historias
+- Frontend: Dashboard, Pacientes, Citas, Leads, Historias, Landing
+- ChatBot: BuilderBot flows
 
 ### Convenciones
 
